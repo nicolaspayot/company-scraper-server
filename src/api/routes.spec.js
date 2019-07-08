@@ -1,3 +1,5 @@
+jest.mock('../services/linkedin/linkedin');
+
 const Hapi = require('@hapi/hapi');
 const api = require('./index');
 
@@ -37,5 +39,12 @@ describe('POST - /api/companies/routes', () => {
     const request2 = requestWithPayload({ linkedin: 'NOT_A_URI', societe: 'NOT_A_URI' });
     const response2 = await server.inject(request2);
     expect(response2.statusCode).toBe(400);
+  });
+
+  it('should return 200 response code with company information if request is successful', async () => {
+    const request = requestWithPayload({ linkedin: 'https://www.linkedin.com/company/foo' });
+    const response = await server.inject(request);
+    expect(JSON.parse(response.payload)).toEqual({ title: 'foo' });
+    expect(response.statusCode).toBe(200);
   });
 });
