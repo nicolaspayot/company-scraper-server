@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nodemon",
     "lint": "eslint --ignore-path .gitignore .",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "test": "jest src"
   },
   "repository": "git@github.com:nicolaspayot/company-scraper-server.git",
   "author": "Nicolas Payot <nicolas.payot@gmail.com> (http://nicolaspayot.github.io/)",
@@ -13,13 +14,16 @@
   "devDependencies": {
     "eslint": "5.16.0",
     "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-jest": "^22.7.2",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.8.0",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2"
   },
   "dependencies": {
     "@hapi/hapi": "^18.3.1",
+    "@hapi/joi": "^15.1.0",
     "dotenv": "^8.0.0",
     "winston": "^3.2.1"
   }
