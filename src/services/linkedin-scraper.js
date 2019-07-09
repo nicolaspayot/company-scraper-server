@@ -4,10 +4,6 @@ const Browser = require('./browser');
 const loginUrl = 'https://www.linkedin.com/login';
 
 module.exports = class LinkedinScraper extends Browser {
-  constructor(url) {
-    super(url);
-  }
-
   async login(page) {
     await page.goto(loginUrl);
     await page.waitForSelector('#username', { timeout: 10000 });
@@ -18,12 +14,12 @@ module.exports = class LinkedinScraper extends Browser {
     await page.waitForSelector('input[role=combobox]', { timeout: 10000 });
   }
 
-  async extractCompanyInformation() {
+  async extractCompanyInformation(url) {
     const { browser, page } = await super.launch();
 
     await this.login(page);
 
-    await page.goto(this.url);
+    await page.goto(url);
     await page.waitForSelector('.org-top-card-summary__title', { timeout: 10000 });
 
     const publicName = await page.$eval('.org-top-card-summary__title', $h1 => $h1.textContent.trim());

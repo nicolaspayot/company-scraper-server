@@ -12,10 +12,6 @@ const agents = [
 ];
 
 module.exports = class Browser {
-  constructor(url) {
-    this.url = url;
-  }
-
   async launch() {
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();

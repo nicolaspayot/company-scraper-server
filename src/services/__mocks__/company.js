@@ -1,7 +1,7 @@
 module.exports = class CompanyService {
-  constructor(payload) {
-    this.linkedinURL = payload.linkedin;
-    this.societeURL = payload.societe;
+  constructor({ linkedin, societe }) {
+    this.linkedinURL = linkedin;
+    this.societeURL = societe;
   }
 
   async findByURLsAndCreate() {

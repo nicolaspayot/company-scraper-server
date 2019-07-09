@@ -1,14 +1,10 @@
 const Browser = require('./browser');
 
 module.exports = class SocieteScraper extends Browser {
-  constructor(url) {
-    super(url);
-  }
-
-  async extractCompanyInformation() {
+  async extractCompanyInformation(url) {
     const { browser, page } = await super.launch();
 
-    await page.goto(this.url);
+    await page.goto(url);
 
     const info = await page.$$eval('#rensjur tbody tr', $trs =>
       $trs.map(tr => {

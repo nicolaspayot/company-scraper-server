@@ -1,22 +1,22 @@
-jest.mock('../services/company');
+jest.mock('../../services/company');
 
 const Hapi = require('@hapi/hapi');
-const api = require('./index');
+const companiesURLs = require('./companies-urls');
 
 const requestWithPayload = payload => {
   return {
     method: 'POST',
-    url: '/api/companies/routes',
+    url: '/companies/urls',
     payload,
   };
 };
 
-describe('POST - /api/companies/routes', () => {
+describe('POST - /companies/urls', () => {
   let server;
 
   beforeEach(async () => {
     server = new Hapi.Server();
-    await api(server);
+    await companiesURLs(server);
   });
 
   it('should return 400 error code if request has no payload', async () => {
