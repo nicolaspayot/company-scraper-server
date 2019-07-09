@@ -10,11 +10,11 @@ module.exports = class LinkedinScraper extends Browser {
 
   async login(page) {
     await page.goto(loginUrl);
-    await page.waitFor('#username');
+    await page.waitForSelector('#username', { timeout: 10000 });
 
     await page.$('#username').then($username => $username.type(config.linkedin.email));
     await page.$('#password').then($password => $password.type(config.linkedin.password));
-    await page.$('.login__form_action_container > button').then($button => $button.click());
+    await page.$('.login__form_action_container button').then($button => $button.click());
     await page.waitForSelector('input[role=combobox]', { timeout: 10000 });
   }
 
@@ -26,20 +26,18 @@ module.exports = class LinkedinScraper extends Browser {
     await page.goto(this.url);
     await page.waitForSelector('.org-top-card-summary__title', { timeout: 10000 });
 
-    const title = await page.$eval('.org-top-card-summary__title', $h1 => $h1.textContent.trim());
+    const name = await page.$eval('.org-top-card-summary__title', $h1 => $h1.textContent.trim());
     const logo = await page.$eval('.org-top-card-primary-content__logo', $img => $img.src);
     const industry = await page.$eval('.org-top-card-summary__industry', $div => $div.textContent.trim());
-    const headquarter = await page.$eval('.org-top-card-summary__headquarter', $div => $div.textContent.trim());
     const employees = await page.$eval('a[data-control-name="topcard_see_all_employees"]', $a => $a.textContent.trim());
     const employeesCount = /(\d+)/.exec(employees)[1];
 
     await browser.close();
 
     return {
-      title,
+      name,
       logo,
       industry,
-      headquarter,
       employeesCount,
     };
   }
