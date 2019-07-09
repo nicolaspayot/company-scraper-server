@@ -17,13 +17,13 @@ module.exports = class CompanyService {
   async extractCompanyInformation() {
     if (this.linkedinURL && !this.societeURL) {
       return this.linkedinScraper.extractCompanyInformation();
-    } else if (!this.linkedinURL && this.societeURL) {
-      return this.societeScraper.extractCompanyInformation();
-    } else {
-      return Promise.all([
-        this.linkedinScraper.extractCompanyInformation(),
-        this.societeScraper.extractCompanyInformation(),
-      ]);
     }
+    if (!this.linkedinURL && this.societeURL) {
+      return this.societeScraper.extractCompanyInformation();
+    }
+    return Promise.all([
+      this.linkedinScraper.extractCompanyInformation(),
+      this.societeScraper.extractCompanyInformation(),
+    ]);
   }
 };

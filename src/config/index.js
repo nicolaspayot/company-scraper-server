@@ -18,4 +18,5 @@ module.exports = {
     email: process.env.LINKEDIN_EMAIL,
     password: process.env.LINKEDIN_PASSWORD,
   },
+  mongodbURI: process.env.MONGODB_URI,
 };

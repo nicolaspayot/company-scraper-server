@@ -17,7 +17,7 @@ const Company = new mongoose.Schema(
     address: String,
     siren: String,
     siret: String,
-    employees: Number,
+    employees: String,
     employeesOnLinkedin: Number,
     shareCapital: String,
   },
