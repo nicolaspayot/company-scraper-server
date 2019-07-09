@@ -4,7 +4,7 @@ module.exports = class CompanyService {
     this.societeURL = payload.societe;
   }
 
-  async extractCompanyInformation() {
+  async findByURLsAndCreate() {
     if (this.linkedinURL && !this.societeURL) {
       return { publicName: 'foo' };
     } else if (!this.linkedinURL && this.societeURL) {

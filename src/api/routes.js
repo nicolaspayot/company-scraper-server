@@ -13,11 +13,11 @@ module.exports = {
         const { payload } = request;
         try {
           const companyService = new CompanyService(payload);
-          const info = await companyService.extractCompanyInformation();
-          return h.response(info).code(200);
+          const company = await companyService.findByURLsAndCreate();
+          return h.response(company).code(200);
         } catch (err) {
           logger.error('%s', err.message);
-          return Boom.badImplementation(err.message);
+          return Boom.notFound(err.message);
         }
       },
       options: {
