@@ -1,4 +1,4 @@
-const Browser = require('../browser');
+const Browser = require('./browser');
 
 module.exports = class SocieteScraper extends Browser {
   constructor(url) {
@@ -25,7 +25,7 @@ module.exports = class SocieteScraper extends Browser {
     const address = getValue('Adresse');
     const siren = getValue('SIREN');
     const siret = getValue('SIRET (siege)');
-    const employeesCount = getValue("Tranche d'effectif");
+    const employees = getValue("Tranche d'effectif");
     const shareCapital = getValue('Capital social');
 
     await browser.close();
@@ -35,7 +35,7 @@ module.exports = class SocieteScraper extends Browser {
       address,
       siren,
       siret,
-      employeesCount,
+      employees,
       shareCapital,
     };
   }
