@@ -16,11 +16,7 @@ module.exports = class CompanyService {
       if (isEmpty(info)) {
         throw new Error('Company not found');
       }
-      company = await Company.create({
-        ...info,
-        linkedinURL: this.linkedinURL,
-        societeURL: this.societeURL,
-      });
+      company = await this.createInDB(info);
     }
     return company;
   }
@@ -48,5 +44,9 @@ module.exports = class CompanyService {
     if (this.societeURL) {
       this.societeScraper = new SocieteScraper(this.societeURL);
     }
+  }
+
+  createInDB(info) {
+    return Company.create({ ...info, linkedinURL: this.linkedinURL, societeURL: this.societeURL });
   }
 };
