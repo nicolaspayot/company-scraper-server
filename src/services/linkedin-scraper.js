@@ -1,4 +1,5 @@
 const config = require('../config');
+const logger = require('../loaders/logger');
 const Browser = require('./browser');
 
 const loginUrl = 'https://www.linkedin.com/login';
@@ -15,28 +16,34 @@ module.exports = class LinkedinScraper extends Browser {
   }
 
   async extractCompanyInformation(url) {
-    const { browser, page } = await super.launch();
+    try {
+      const { browser, page } = await super.launch();
 
-    await this.login(page);
+      await this.login(page);
 
-    await page.goto(url);
-    await page.waitForSelector('.org-top-card-summary__title', { timeout: 10000 });
+      await page.goto(url);
+      await page.waitForSelector('.org-top-card-summary__title', { timeout: 10000 });
 
-    const publicName = await page.$eval('.org-top-card-summary__title', $h1 => $h1.textContent.trim());
-    const logoURL = await page.$eval('.org-top-card-primary-content__logo', $img => $img.src);
-    const industry = await page.$eval('.org-top-card-summary__industry', $div => $div.textContent.trim());
-    const employeesLink = await page.$eval('a[data-control-name="topcard_see_all_employees"]', $a =>
-      $a.textContent.trim(),
-    );
-    const employeesOnLinkedin = /(\d+)/.exec(employeesLink)[1];
+      const publicName = await page.$eval('.org-top-card-summary__title', $h1 => $h1.textContent.trim());
+      const logoURL = await page.$eval('.org-top-card-primary-content__logo', $img => $img.src);
+      const industry = await page.$eval('.org-top-card-summary__industry', $div => $div.textContent.trim());
+      const employeesLink = await page.$eval('a[data-control-name="topcard_see_all_employees"]', $a =>
+        $a.textContent.trim(),
+      );
+      const employeesOnLinkedin = /(\d+)/.exec(employeesLink)[1];
 
-    await browser.close();
+      await browser.close();
 
-    return {
-      publicName,
-      logoURL,
-      industry,
-      employeesOnLinkedin,
-    };
+      return {
+        linkedinURL: url,
+        publicName,
+        logoURL,
+        industry,
+        employeesOnLinkedin,
+      };
+    } catch (err) {
+      logger.error('[linkedin-scraper] %s', err.message);
+      return {};
+    }
   }
 };

@@ -35,12 +35,19 @@ describe('CompanyService', () => {
     expect(company).toEqual({ _id: 1 });
   });
 
-  it("should look for company in DB, scrap it from Linkedin and save it if it doesn't exist", async () => {
+  it('should look for company in DB, scrap it from Linkedin and save it', async () => {
     Company.findOne = jest.fn(() => Promise.resolve(null));
     Company.create = jest.fn(() => Promise.resolve({ _id: 1 }));
     companyService = new CompanyService({ linkedin: LINKEDIN_URL });
     companyService.extractCompanyInformation = jest.fn(() => Promise.resolve({ publicName: 'foo' }));
     const company = await companyService.findByURLsAndCreate();
     expect(company).toEqual({ _id: 1 });
+  });
+
+  it('should look for company in DB, scrap it from Linkedin and throw 404 Not Found error', async () => {
+    Company.findOne = jest.fn(() => Promise.resolve(null));
+    companyService = new CompanyService({ linkedin: LINKEDIN_URL });
+    companyService.extractCompanyInformation = jest.fn(() => Promise.resolve({}));
+    await expect(companyService.findByURLsAndCreate()).rejects.toThrow('Company not found');
   });
 });

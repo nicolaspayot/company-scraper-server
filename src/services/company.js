@@ -1,3 +1,4 @@
+const Boom = require('@hapi/boom');
 const { isEmpty } = require('../utils');
 const LinkedinScraper = require('./linkedin-scraper');
 const SocieteScraper = require('./societe-scraper');
@@ -14,9 +15,9 @@ module.exports = class CompanyService {
     if (!company) {
       const info = await this.extractCompanyInformation();
       if (isEmpty(info)) {
-        throw new Error('Company not found');
+        throw Boom.notFound('Company not found');
       }
-      company = await this.createInDB(info);
+      company = await Company.create(info);
     }
     return company;
   }
@@ -44,9 +45,5 @@ module.exports = class CompanyService {
     if (this.societeURL) {
       this.societeScraper = new SocieteScraper();
     }
-  }
-
-  createInDB(info) {
-    return Company.create({ ...info, linkedinURL: this.linkedinURL, societeURL: this.societeURL });
   }
 };
