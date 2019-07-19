@@ -14,13 +14,13 @@ module.exports = class SearchService {
   }
 
   async extractCompanyURLs() {
-    const [linkedinURLs, societeURLs] = await Promise.all([
+    const [linkedin, societe] = await Promise.all([
       this.googleScraper.extractCompanyURLs(encodeURI(this.linkedinURL)),
       this.googleScraper.extractCompanyURLs(encodeURI(this.societeURL)),
     ]);
     return {
-      linkedinURLs,
-      societeURLs,
+      linkedin,
+      societe,
     };
   }
 };
