@@ -18,7 +18,7 @@ const Company = new mongoose.Schema(
     siren: String,
     siret: String,
     employees: String,
-    employeesOnLinkedin: Number,
+    employeesOnLinkedin: String,
     shareCapital: String,
   },
   { timestamps: true },

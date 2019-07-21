@@ -3,6 +3,15 @@ const logger = require('../loaders/logger');
 const Browser = require('./browser');
 
 const loginUrl = 'https://www.linkedin.com/login';
+const employeesRegExp = /[0-9]+(,[0-9]+)?/;
+
+const extractEmployees = rawEmployees => {
+  const match = employeesRegExp.exec(rawEmployees);
+  if (!match) {
+    return '';
+  }
+  return match[0];
+};
 
 module.exports = class LinkedinScraper extends Browser {
   async login(page) {
@@ -30,7 +39,7 @@ module.exports = class LinkedinScraper extends Browser {
       const employeesLink = await page.$eval('a[data-control-name="topcard_see_all_employees"]', $a =>
         $a.textContent.trim(),
       );
-      const employeesOnLinkedin = /(\d+)/.exec(employeesLink)[1];
+      const employeesOnLinkedin = extractEmployees(employeesLink);
 
       await browser.close();
 

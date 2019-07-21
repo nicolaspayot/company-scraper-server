@@ -1,6 +1,16 @@
 const logger = require('../loaders/logger');
 const Browser = require('./browser');
 
+const employeesRegExp = /([0-9]+) à ([0-9]+) salariés/;
+
+const extractEmployees = rawEmployees => {
+  const match = employeesRegExp.exec(rawEmployees);
+  if (!match) {
+    return '';
+  }
+  return `${match[1]} to ${match[2]}`;
+};
+
 module.exports = class SocieteScraper extends Browser {
   async extractCompanyInformation(url) {
     try {
@@ -24,7 +34,7 @@ module.exports = class SocieteScraper extends Browser {
       const address = getValue('Adresse');
       const siren = getValue('SIREN');
       const siret = getValue('SIRET (siege)');
-      const employees = getValue("Tranche d'effectif");
+      const employees = extractEmployees(getValue("Tranche d'effectif"));
       const shareCapital = getValue('Capital social');
 
       await browser.close();
