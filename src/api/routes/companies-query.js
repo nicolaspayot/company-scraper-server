@@ -12,6 +12,11 @@ module.exports = server =>
       try {
         const search = new SearchService(payload);
         const companyURLs = await search.extractCompanyURLs();
+        const { linkedin, societe } = companyURLs;
+        if (linkedin.length === 0 && societe.length === 0) {
+          logger.error('%s', `No URLs found for ${payload.query}`);
+          return Boom.notFound();
+        }
         return h.response(companyURLs).code(200);
       } catch (err) {
         logger.error('%s', err.message);
