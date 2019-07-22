@@ -1,5 +1,7 @@
 # company-scraper-server
 
+[![Build Status](https://travis-ci.com/nicolaspayot/company-scraper-server.svg?token=poc8X7Ros3wxLmbqaEpn&branch=master)](https://travis-ci.com/nicolaspayot/company-scraper-server)
+
 ## Context
 
 `company-scraper-server` is a web server app built with Node.js and [hapi](https://github.com/hapijs/hapi) framework, whose purpose is to scrap company information from different sources such as [linkedin.com](https://www.linkedin.com) and [societe.com](https://www.societe.com).
