@@ -4,7 +4,7 @@ const Company = require('../models/company');
 
 module.exports = () => {
   const agenda = new Agenda({
-    db: { address: config.mongodbURI, options: { useNewUrlParser: true } },
+    db: { address: config.mongodbURI, collection: 'jobs', options: { useNewUrlParser: true } },
   });
 
   agenda.define('DELETE_OLD_COMPANIES', (_, done) => {
