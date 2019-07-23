@@ -50,7 +50,7 @@ Returns company information from company page(s) URL(s).
 
 ```javascript
 {
-  linkedin: 'https://www.linkedin.com/company/company-page',
+  linkedin: 'https://www.linkedin.com/company/company-name',
   societe: 'https://www.societe.com/societe/company-name'
 }
 ```
