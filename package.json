@@ -28,7 +28,7 @@
     "@hapi/boom": "^7.4.2",
     "@hapi/hapi": "^18.3.1",
     "@hapi/joi": "^15.1.0",
-    "agenda": "^2.0.2",
+    "agenda": "^2.3.0",
     "dotenv": "^8.0.0",
     "hapi-cors": "^1.0.3",
     "mongoose": "^5.6.4",
