@@ -27,7 +27,7 @@
   "dependencies": {
     "@hapi/boom": "^7.4.2",
     "@hapi/hapi": "^18.4.1",
-    "@hapi/joi": "^15.1.0",
+    "@hapi/joi": "^15.1.1",
     "agenda": "^2.0.2",
     "dotenv": "^8.2.0",
     "hapi-cors": "^1.0.3",
