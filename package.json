@@ -32,7 +32,7 @@
     "dotenv": "^8.2.0",
     "hapi-cors": "^1.0.3",
     "mongoose": "^5.9.7",
-    "puppeteer": "^1.18.1",
+    "puppeteer": "^18.2.0",
     "winston": "^3.2.1"
   }
 }
