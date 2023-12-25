@@ -26,13 +26,13 @@
   },
   "dependencies": {
     "@hapi/boom": "^7.4.2",
-    "@hapi/hapi": "^18.4.1",
+    "@hapi/hapi": "^20.0.0",
     "@hapi/joi": "^15.1.0",
     "agenda": "^2.0.2",
     "dotenv": "^8.2.0",
     "hapi-cors": "^1.0.3",
     "mongoose": "^5.9.7",
-    "puppeteer": "^1.18.1",
+    "puppeteer": "^21.3.7",
     "winston": "^3.2.1"
   }
 }
